@@ -2,7 +2,7 @@ new Promise((resolve, reject) => {
     setTimeout(() => {
         const a = 'hello'
         resolve(a)
-    }, 30)
+    }, 10)
 })
     .then((res) => {
         const b = res + ' ' + 'lagou'
@@ -84,27 +84,33 @@ let transValue = sanitizeNames()
 console.log(transValue(['Hello World']));
 
 //练习5
-//只考虑用了相关api 没有按照函数式编程开发
 let maybe = Maybe.of([5, 6, 11])
-let ex1 = () => {
-    let result = []
-    let arr = fp.map(item => item, maybe._value)
-    let sum = 0
-    for (let i = 1; i < arr.length; i++) {
-        sum += arr[i - 1]
-    }
-    result.push(sum, arr[arr.length - 1])
-    return fp.add(...result)
+const ex1 = (y) => {
+    return maybe.map(fp.map(fp.add(y)));
 }
-let total = ex1()
+let total = ex1(100)
 console.log(total);
 
 //练习6
 let xs = Container.of(['do', 'ray', 'me', 'fa', 'so', 'la', 'ti', 'do'])
 let ex2 = () => {
-    return fp.first(xs._value)
+    return xs.map(fp.first)
 }
 let firstVal = ex2()
 console.log(firstVal);
 
+//练习7
+let safeProp = fp.curry(function (x, o) {
+    return Maybe.of(o[x])
+})
+let user = { id: 2, name: 'Albert' }
+const ex3 = () => {
+    return safeProp('name')(user).map(fp.first)
+}
+console.log(ex3());
 
+//练习8
+const ex4 = (n) => {
+    return Maybe.of(n).map(parseInt)
+}
+console.log(ex4('100'));

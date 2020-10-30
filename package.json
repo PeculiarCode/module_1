@@ -2,9 +2,9 @@
   "name": "test1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "promise.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "promise.js"
   },
   "repository": {
     "type": "git",
